@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&display=swap');
+
+.navbar {
+    gap: 123px;
+    /* margin-top: 30px; */
+    background-color: #000000; /* Set the background color to black */
+    padding: 10px 50px; /* Add some padding for better visual spacing */
+}
+
+.navbar-title-link {
+    text-decoration: none; /* Remove underline */
+}
+
+.navbar-title {
+    font-family: 'Nunito', sans-serif;
+    font-size: 36px;
+    color: #FFFFFF; /* Set the text color to white */
+    /* margin: 0; */
+    /* padding: 0; */
+}
+
+.navbar-title-link:hover .navbar-title {
+    text-decoration: none; /* Ensure no underline on hover */
+}
+
+.navbar-links {
+    gap: 40px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 24px;
+    align-items: flex-end;
+}
+
+.navbar-link {
+    text-decoration: none !important;
+    color: #FFFFFF !important; /* Set the text color to white */
+    position: relative;
+    /* padding-bottom: 5px; */
+    transition: color 0.3s ease;
+}
+
+.navbar-link:hover {
+    color: #B0B0B0 !important; /* Set the hover color to a muted gray */
+}
+
+/* Ensure no underline for active link */
+.navbar-link.active::after {
+    content: '';
+    position: absolute;
+    width: 0 !important;
+    height: 3px;
+    bottom: 0;
+    left: 0;
+    background-color: #FF2625;
+    border-radius: 2px;
+}
+
+/* Override the -webkit-any-link styles */
+a:-webkit-any-link {
+    text-decoration: none !important;
+}
