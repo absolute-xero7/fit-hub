@@ -1,10 +1,10 @@
 # fitHub
 
-fitHub is a comprehensive exercise database. It provides users with access to a wide range of exercises, detailed exercise videos, and other fitness-related information. The application is designed to be responsive and user-friendly, ensuring a seamless experience across different devices.
+FitHub is a comprehensive exercise database. It provides users with access to a wide range of exercises, detailed exercise videos, and other fitness-related information. The application is designed to be responsive and user-friendly, ensuring a seamless experience across different devices.
 
 ![Dashboard of the app](fitHub.jpg)
 
-[Demo](https://fithub.vercel.com)
+[Demo](https://youtu.be/B7BnqMOZACA)
 
 ## Tech Stack
 
