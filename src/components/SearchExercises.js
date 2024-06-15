@@ -10,9 +10,16 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
 
     useEffect(() => {
         const fetchExercisesData = async () => {
-            const bodyPartsData = await fetchData('https://exercisedb.p.rapidapi.com/exercises/bodyPartList', exerciseOptions)
-
-            setBodyParts(['all', ...bodyPartsData])
+            try {
+                const bodyPartsData = await fetchData('https://exercisedb.p.rapidapi.com/exercises/bodyPartList', exerciseOptions)
+                if (Array.isArray(bodyPartsData)) {
+                    setBodyParts(['all', ...bodyPartsData])
+                } else {
+                    console.error('Unexpected response:', bodyPartsData)
+                }
+            } catch (error) {
+                console.error('Failed to fetch body parts data:', error)
+            }
         }
 
         fetchExercisesData()
@@ -20,25 +27,50 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
 
     const handleSearch = async () => {
         if (search) {
-            const exercisesData = await fetchData('https://exercisedb.p.rapidapi.com/exercises', exerciseOptions)
+            try {
+                console.log('Fetching exercises data...')
+                const exercisesData = await fetchData('https://exercisedb.p.rapidapi.com/exercises?limit=0', exerciseOptions)
+                console.log('Fetched exercises data:', exercisesData)
 
-            const searchedExercises = exercisesData.filter(
-                (item) => item.name.toLowerCase().includes(search)
-                    || item.target.toLowerCase().includes(search)
-                    || item.equipment.toLowerCase().includes(search)
-                    || item.bodyPart.toLowerCase().includes(search),
-            )
+                console.log('Search term:', search)
 
-            window.scrollTo({ top: 1800, left: 100, behavior: 'smooth' })
+                const searchedExercises = exercisesData.filter(
+                    (item) => {
+                        const match = item.name.toLowerCase().includes(search) ||
+                            item.target.toLowerCase().includes(search) ||
+                            item.equipment.toLowerCase().includes(search) ||
+                            item.bodyPart.toLowerCase().includes(search)
 
-            setSearch('')
-            setExercises(searchedExercises)
+                        if (match) {
+                            console.log('Match found:', item)
+                        }
+
+                        return match
+                    }
+                )
+
+                console.log('Filtered exercises:', searchedExercises)
+
+                window.scrollTo({ top: 1800, left: 100, behavior: 'smooth' })
+
+                setSearch('')
+                setExercises(searchedExercises)
+            } catch (error) {
+                console.error('Failed to fetch exercises data:', error)
+                setExercises([]) // Optionally reset exercises on error
+            }
         }
     }
 
+    const handleKeyPress = (event) => {
+        if (event.key === 'Enter') {
+            handleSearch();
+        }
+    };
+
     return (
         <Stack alignItems="center" mt="37px" justifyContent="center" p="20px">
-            <Typography fontWeight={700} sx={{ fontSize: { lg: '44px', xs: '30px' } }} fontFamily='Nunito' color='#FFFFFF' mb="49px" textAlign="center">
+            <Typography fontWeight={700} sx={{ fontSize: { lg: '44px', xs: '30px' } }} fontFamily="Nunito" color="#FFFFFF" mb="49px" textAlign="center">
                 The Only Exercise Database <br /> You'll Ever Need
             </Typography>
             <Box position="relative" mb="72px">
@@ -56,7 +88,7 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
                             lg: '1170px',
                             md: '800px', // Width for medium screens
                             sm: '500px', // Width for small screens
-                            xs: '320px'
+                            xs: '320px',
                         },
                         fontFamily: 'Nunito',
                         backgroundColor: 'white', // Default background color
@@ -97,6 +129,7 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
                     placeholder="Search Exercises"
                     type="text"
                     variant="outlined"
+                    onKeyPress={handleKeyPress}
                 />
                 <Button
                     className="search-btn"
@@ -115,7 +148,7 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
                             bgcolor: '#000000', // Background color on hover
                             color: '#000000', // Text color on hover
                             borderColor: '#000000', // Border color on hover
-                        }
+                        },
                     }}
                     onClick={handleSearch}
                 >

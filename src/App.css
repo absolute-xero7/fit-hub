@@ -10,6 +10,7 @@ body {
     padding: 0px;
     margin: 0px;
     box-sizing: border-box;
+    font-family: 'Nunito', sans-serif;
 }
 
 ::-webkit-scrollbar {
@@ -71,11 +72,11 @@ body {
 }
 
 .exercise-card {
-    width: 400px;
-    height: 445px;
+    width: 350px;
+    height: 360px;
     background: #fff;
-    border-top: 4px solid #b616f6;
-    border-bottom-left-radius: 20px;
+    /* border-top: 4px solid #b616f6; */
+    border-radius: 20px;
     text-decoration: none;
     display: flex;
     justify-content: space-between;
@@ -86,7 +87,9 @@ body {
 }
 
 .exercise-card img {
-    height: 326px;
+    height: 250px;
+    border-radius: 20px;
+    margin-bottom: -40px;
 }
 
 .bodyPart-card {
@@ -97,6 +100,10 @@ body {
 .exercise-card:hover,
 .bodyPart-card:hover {
     transform: scale(1.1, 1.1);
+}
+
+.detail-image {
+    border-radius: 20px;
 }
 
 .search-btn:hover {
